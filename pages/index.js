@@ -5,7 +5,7 @@ export default function Home() {
       
 
   <Head>
-    <title>NExt|Home</title>
+    <title>Next|Home</title>
   </Head>
       <h1>Home</h1>
   
