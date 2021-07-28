@@ -4,18 +4,17 @@ import Head from "next/head"
 import Link from "next/link";
 
 export async function  getStaticProps() {
-    const data = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const data = await fetch('http://localhost:8000/api/games')
     const results = await data.json();
   
     return {
-        props: { results },
-            revalidate: 1, // 1 day in seconds
+        props: { results:results },
+
     }
 }
 
 
 const Todos = ({ results }) => {
-    console.log(results)
     
 
     
@@ -26,12 +25,12 @@ const Todos = ({ results }) => {
                 <title>Todos</title>
             </Head>
             {
-                results
+                results.data
                    
                     ? (
                          <ul>
             {
-                results.map(result => 
+                results.data.map(result => 
                     <li key={result.id}>
                         
                         <h1>
@@ -39,7 +38,8 @@ const Todos = ({ results }) => {
                                 {result.title}
                             </Link>
                         </h1>
-                        <h2>{result.body}</h2>
+                        <h2>{result.slug}</h2>
+                        <p>{result.desc}</p>
                        
                     </li>
                    
@@ -50,7 +50,11 @@ const Todos = ({ results }) => {
                     )
                      :<h3>Loading...</h3>
             }
-           
+            {
+                
+          }
+            <p> <Link href="/todos/page/2">Page 2</Link></p>
+          
         <p>
             <Link href="/">back to home</Link></p>
         </div>
