@@ -16,7 +16,7 @@ const Page = (data) => {
 }
  
 export const getStaticPaths = async() => {
-    const response = await fetch('http://localhost:8000/api/games')
+    const response = await fetch('http://128.199.101.80/api/games')
     const data = await response.json()
     const paths = []
     
