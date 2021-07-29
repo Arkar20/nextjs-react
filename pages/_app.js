@@ -5,8 +5,9 @@ import Layout from '../components/layout'
 import NProgress from 'nprogress';
 import React from 'react';
 import Router from 'next/router';
+import {wrapper} from '../redux/store';
 
-function MyApp({ Component, pageProps }) {
+const  MyApp=({ Component, pageProps }) =>{
   const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
     const start = () => {
@@ -33,8 +34,10 @@ Router.events.on('routeChangeError', () => NProgress.done());
           :      <Component  { ...pageProps}/>
 
       }
-    </Layout>
+      </Layout>
   )
 }
 
-export default MyApp
+export default wrapper.withRedux(MyApp);
+
+

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import List from "../../../components/List"
 const Page = (data) => {
     return (
         <div>
@@ -6,17 +7,7 @@ const Page = (data) => {
 
             <ul>
               {  data.data.data.map(result => (
-                  <li key={result.id}>
-                        
-                        <h1>
-                            <Link href={'/todos/'+result.id}>
-                                {result.title}
-                            </Link>
-                        </h1>
-                        <h2>{result.slug}</h2>
-                        <p>{result.desc}</p>
-                       
-                    </li>
+                  <List data={result} key={result.id}/>
                 ))}
             </ul>
             
@@ -44,9 +35,8 @@ export const getStaticPaths = async() => {
 }
 export const getStaticProps = async (context) => {
     const pageno=context.params.page
-    const response = await fetch('http://localhost:8000/api/games?page=' + pageno)
+    const response = await fetch('http://128.199.101.80/api/games?page=' + pageno)
     const data = await response.json()
-    console.log(data)
     
     return {
         props:{data}

@@ -1,8 +1,9 @@
 import Head from "next/head"
-import router from "next/router"
+import List from "../../components/List"
 import {useRouter} from "next/router"
+import { wrapper } from "../../redux/store"
+
 const Detail = ({ result }) => {
-    console.log(result)
     const router = useRouter()
     
     if (router.isFallback)
@@ -14,14 +15,12 @@ const Detail = ({ result }) => {
             <title>{result.title}</title>
         </Head>
 
-            <h2>Detail page</h2>
-        <p>{result.title}</p>
-        <p>{result.body}</p>
-        </div>
+            <List data={result} />
+            </div>
     );
 }
 export const getStaticPaths =async () => {
-     const data = await fetch('http://localhost:8000/api/games')
+     const data = await fetch('http://128.199.101.80/api/games')
     const results = await data.json();
     const paths = results.data.map(result => {
         return {
@@ -37,10 +36,9 @@ export const getStaticPaths =async () => {
 }
 export const getStaticProps = async (context) => {
     const id = context.params.id
-        const data = await fetch('http://localhost:8000/api/searchlists')
+        const data = await fetch('http://128.199.101.80/api/searchlists')
         const results = await data.json();
     const result = results.find(result => id == result.id);
-    console.log(result)
     if (!result) {
         return {
             notFound:true
